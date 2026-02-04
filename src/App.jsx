@@ -1,14 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function App() {
-  const [mood, setMood] = useState("happy");
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    fetch("https://randomuser.me/api/")
+      .then(response => response.json())
+      .then(data => setUserData(data));
+  }, []);
 
   return (
-    <body style={{ backgroundColor: mood === 'Tired' ? 'gray' : 'green', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-      <h1>{mood}</h1>
-      <button onClick={() => setMood("productive")}>Productive</button>
-      <button onClick={() => setMood("Tired")}>Tired</button>
-      <button onClick={() => setMood("Inspired")}>Inspired</button>
-    </body>
+    <>
+      {userData && (
+        <body style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center"}}>
+          <h1>{userData.results[0].name.first} {userData.results[0].name.last}</h1>
+          <p>{userData.results[0].email}</p>
+          <img src={userData.results[0].picture.large} alt="" />
+        </body>
+      )}
+    </>
   );
 }
