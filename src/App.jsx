@@ -1,22 +1,55 @@
 import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import MyButton from './MyButton'
+import UserAvatar from './UserAvatar'
+import StatusBadge from './StatusBadge'
 
-export default function App() {
-  const [userName, setUserName] = useState(null);
-  const [comment, setComment] = useState(null);
+function App() {
+  const [count, setCount] = useState(0)
 
   return (
     <>
-      <form style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: "10px"}}>
-        <label htmlFor="userName">User Name</label>
-        <input type="text" id="userName" onChange={(e) => setUserName(e.target.value)}/>
-        <label htmlFor="comment">Comment</label>
-        <textarea id="comment" onChange={(e) => setComment(e.target.value)}/>
-      </form>
-      <div style={{ marginTop: "20px", border: "1px solid #ccc", borderRadius: "8px", padding: "10px", textAlign: "center"}}>
-        <h3>Live Preview</h3>
-        <p>User Name: {userName}</p>
-        <p>Comment: {comment}</p>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+        <div className="cardUsers">
+          <div className="cardUser">
+            <MyButton label="Katherine Johnson" color="red" />
+            <UserAvatar ImageURL="https://i.imgur.com/MK3eW3As.jpg" size={100} />
+            <StatusBadge status="offline" />
+          </div>
+          <div className="cardUser">
+            <MyButton label="Alan L. Hart" color="green" />
+            <UserAvatar ImageURL="https://i.imgur.com/QIrZWGIs.jpg" size={100} />
+            <StatusBadge status="online" />
+          </div>
+          <div className="cardUser">
+            <MyButton label="Hedy Lamarr" color="orange" />
+            <UserAvatar ImageURL="https://i.imgur.com/yXOvdOSs.jpg" size={100} />
+            <StatusBadge status="away" />
+          </div>
+        </div>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
     </>
-  );
+  )
 }
+
+export default App
